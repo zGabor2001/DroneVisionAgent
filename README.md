@@ -29,6 +29,11 @@ This includes:
 
 ### 3) Run the container
 
+Use to force a full package rebuild within the container of startup
+```bash
+FORCE_REBUILD=1
+```
+
 Headless:
 
 ```bash
@@ -86,7 +91,7 @@ sudo docker run --rm -it \
 source /opt/ros/jazzy/setup.bash
 cd /repo/ws
 rm -rf build install log
-colcon build --symlink-install --merge-install
+colcon build --symlink-install --merge-install --packages-skip px4
 source install/setup.bash
 cd /repo/ws/src/px4
 make px4_sitl_default -j$(nproc)
@@ -121,7 +126,9 @@ ros2 topic list
 ros2 topic echo /clock
 
 #Connect on the px4 console with
+cd /repo/ws/src/px4
 python3 Tools/mavlink_shell.py udp:0.0.0.0:14540
+
 ```
 
 If PX4 times out, make sure Gazebo is running and that your `GZ_PLUGIN_PATH` is exported correctly.

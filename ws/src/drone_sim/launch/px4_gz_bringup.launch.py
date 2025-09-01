@@ -34,6 +34,7 @@ def generate_launch_description():
     px4_gz_model_name = LaunchConfiguration('px4_gz_model_name')
     px4_sys_autostart = LaunchConfiguration('px4_sys_autostart')
     world_file = LaunchConfiguration('world_file')
+    px4_verbose = LaunchConfiguration('verbose')
 
 
     world_arg = DeclareLaunchArgument(
@@ -61,6 +62,10 @@ def generate_launch_description():
     px4_sys_autostart_arg = DeclareLaunchArgument(
         'px4_sys_autostart', default_value='4001',
         description='PX4 airframe autostart ID (e.g., 4001 for X500).'
+    )
+    verbose_arg = DeclareLaunchArgument(
+        'verbose', default_value='2',
+        description="PX4 verbosity - '1'=error, '2'=warn, '3'=info, '4'=debug'"
     )
 
     # -------------------------
@@ -102,7 +107,7 @@ def generate_launch_description():
     # -------------------------
     _sim_cmd = ['gz', 'sim'] if which('gz') else ['ign', 'gazebo']
 
-    VERBOSE = '4'   # '1'=error, '2'=warn, '3'=info, '4'=debug
+    VERBOSE = px4_verbose
 
     gazebo_headless = ExecuteProcess(
         cmd=_sim_cmd + ['-r', '-s', '--headless-rendering', '-v', VERBOSE, world_file],
@@ -168,7 +173,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         # Args
-        world_arg, headless_arg, px4_arg, px4_sim_model_arg, px4_gz_model_name_arg, px4_sys_autostart_arg,
+        world_arg, headless_arg, px4_arg, px4_sim_model_arg, px4_gz_model_name_arg, px4_sys_autostart_arg, verbose_arg,
         # Env
         set_gz_path, render_engine,
         soft_gl, disable_gui, qt_offscreen,

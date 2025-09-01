@@ -76,22 +76,30 @@ ARG PX4_TAG=v1.16.0
 RUN git clone --depth 1 --branch ${PX4_TAG} https://github.com/PX4/PX4-Autopilot.git /repo/ws/src/px4 && \
     cd /repo/ws/src/px4 && git submodule update --init --recursive
 
-# Add extras and make rcS source it safely (ignore errors)
-RUN set -eux; \
-  cd /repo/ws/src/px4; \
-  mkdir -p ROMFS/px4fmu_common/etc ROMFS/px4fmu_common/init.d-posix; \
-  printf '%s\n' \
-    "param set SYS_AUTOSTART 4001" \
-    "param set SYS_HAS_MAG 0" \
-    "param set EKF2_MAG_CHECK 0" \
-    "param set NAV_DLL_ACT 0" \
-    "param set COM_RC_IN_MODE 1" \
-    "param save" \
-    > ROMFS/px4fmu_common/etc/extras.txt; \
-  printf '\n# --- Source user extras (errors ignored) ---\nset +e\nif [ -r etc/extras.txt ]; then\n    . etc/extras.txt || true\nfi\nset -e\n' \
-    >> ROMFS/px4fmu_common/init.d-posix/rcS
-
-
+# Add overrides directly into rcS so they always run (and save)
+RUN bash -lc ' \
+  cd /repo/ws/src/px4 && \
+  mkdir -p ROMFS/px4fmu_common/init.d-posix && \
+  { \
+    echo ""; \
+    echo "# --- Fire Drone sim overrides (appended by Docker build) ---"; \
+    echo "# Disable magnetometer requirement (no mag in sim)"; \
+    echo "param set SYS_HAS_MAG 0"; \
+    echo "param set EKF2_MAG_CHECK 0"; \
+    echo ""; \
+    echo "# Don’t demand RC input (drive via MAVLink)"; \
+    echo "param set COM_RC_IN_MODE 1"; \
+    echo ""; \
+    echo "# Data link loss action: Disabled for sim bringup"; \
+    echo "param set NAV_DLL_ACT 0"; \
+    echo ""; \
+    echo "# (Optional) Pin IMU IDs if needed:"; \
+    echo "# param set CAL_ACC0_ID 1310988"; \
+    echo "# param set CAL_GYRO0_ID 1310988"; \
+    echo ""; \
+    echo "# Persist to parameters.bson so next run starts clean"; \
+    echo "param save"; \
+  } >> ROMFS/px4fmu_common/init.d-posix/rcS'
 
 
 # -----------------------------------------------------------
@@ -110,6 +118,8 @@ RUN echo 'source /opt/ros/jazzy/setup.bash || true' >> /root/.bashrc && \
     echo 'export GZ_SIM_RESOURCE_PATH="/repo/ws/src:/repo/ws/install/share:/repo/ws/src/px4/Tools/simulation/gz/models:${GZ_SIM_RESOURCE_PATH:-}"' >> /root/.bashrc && \
     echo 'export COLCON_PYTHON_EXECUTABLE=/opt/venv/bin/python3' >> /root/.bashrc && \
     echo 'export PX4_CMAKE_ARGS="-DPython3_EXECUTABLE=/opt/venv/bin/python3 -DPYTHON_EXECUTABLE=/opt/venv/bin/python3"' >> /root/.bashrc
+
+
 
 CMD ["/bin/bash"]
 
