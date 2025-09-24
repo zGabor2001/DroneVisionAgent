@@ -267,5 +267,5 @@ def generate_launch_description():
         start_wait_after_unpause,
         start_px4_after_waits,
         # Optional ROS bridges (not needed for PX4/EKF)
-        # bridges, img_bridge,
+        bridges, img_bridge,
     ])
