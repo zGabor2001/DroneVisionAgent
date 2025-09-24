@@ -29,11 +29,6 @@ This includes:
 
 ### 3) Run the container
 
-Use to force a full package rebuild within the container of startup
-```bash
-FORCE_REBUILD=1
-```
-
 Headless:
 
 ```bash
@@ -103,7 +98,7 @@ make px4_sitl_default -j$(nproc)
 
 ```bash
 ros2 launch drone_sim px4_gz_bringup.launch.py \
-  headless:=false px4:=true \
+  headless:=true px4:=true \
   px4_sim_model:=x500_custom \
   px4_sys_autostart:=4001
 ```

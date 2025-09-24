@@ -102,20 +102,17 @@ RUN bash -lc ' \
   } >> ROMFS/px4fmu_common/init.d-posix/rcS'
 
 
-# -----------------------------------------------------------
-# Gazebo environment (Harmonic, gz-sim-8)
-# -----------------------------------------------------------
+# Gazebo env
 ENV GZ_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/gz-sim-8/plugins
 ENV GZ_RENDER_ENGINE=ogre2
-# Helpful default for finding models/worlds (workspace + PX4 models)
-ENV GZ_SIM_RESOURCE_PATH="/repo/ws/src:/repo/ws/install/share:/repo/ws/src/px4/Tools/simulation/gz/models:${GZ_SIM_RESOURCE_PATH}"
+ENV GZ_SIM_RESOURCE_PATH=/repo/ws/src:/repo/ws/install/share:/repo/ws/src/px4/Tools/simulation/gz/models
 
-# QoL: source ROS + your workspace + Gazebo env on shell
+# QoL: source env on shell
 RUN echo 'source /opt/ros/jazzy/setup.bash || true' >> /root/.bashrc && \
     echo '[ -f /repo/ws/install/setup.bash ] && source /repo/ws/install/setup.bash' >> /root/.bashrc && \
     echo 'export GZ_PLUGIN_PATH=/usr/lib/x86_64-linux-gnu/gz-sim-8/plugins:${GZ_PLUGIN_PATH:-}' >> /root/.bashrc && \
     echo 'export GZ_RENDER_ENGINE=ogre2' >> /root/.bashrc && \
-    echo 'export GZ_SIM_RESOURCE_PATH="/repo/ws/src:/repo/ws/install/share:/repo/ws/src/px4/Tools/simulation/gz/models:${GZ_SIM_RESOURCE_PATH:-}"' >> /root/.bashrc && \
+    echo 'export GZ_SIM_RESOURCE_PATH="${GZ_SIM_RESOURCE_PATH:+${GZ_SIM_RESOURCE_PATH}:}/repo/ws/src:/repo/ws/install/share:/repo/ws/src/px4/Tools/simulation/gz/models"' >> /root/.bashrc && \
     echo 'export COLCON_PYTHON_EXECUTABLE=/opt/venv/bin/python3' >> /root/.bashrc && \
     echo 'export PX4_CMAKE_ARGS="-DPython3_EXECUTABLE=/opt/venv/bin/python3 -DPYTHON_EXECUTABLE=/opt/venv/bin/python3"' >> /root/.bashrc
 

@@ -23,7 +23,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://x500/meshes/NXP-HGD-CF.dae</uri>
+            <uri>model://x500_custom/meshes/NXP-HGD-CF.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -32,7 +32,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://x500/meshes/5010Base.dae</uri>
+            <uri>model://x500_custom/meshes/5010Base.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -41,7 +41,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://x500/meshes/5010Base.dae</uri>
+            <uri>model://x500_custom/meshes/5010Base.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -50,7 +50,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://x500/meshes/5010Base.dae</uri>
+            <uri>model://x500_custom/meshes/5010Base.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -59,7 +59,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://x500/meshes/5010Base.dae</uri>
+            <uri>model://x500_custom/meshes/5010Base.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -77,7 +77,7 @@
           <specular>1.0 1.0 1.0</specular>
           <pbr>
             <metal>
-              <albedo_map>model://x500/materials/textures/nxp.png</albedo_map>
+              <albedo_map>model://x500_custom/materials/textures/nxp.png</albedo_map>
             </metal>
           </pbr>
         </material>
@@ -96,7 +96,7 @@
           <specular>1.0 1.0 1.0</specular>
           <pbr>
             <metal>
-              <albedo_map>model://x500/materials/textures/nxp.png</albedo_map>
+              <albedo_map>model://x500_custom/materials/textures/nxp.png</albedo_map>
             </metal>
           </pbr>
         </material>
@@ -115,7 +115,7 @@
           <specular>1.0 1.0 1.0</specular>
           <pbr>
             <metal>
-              <albedo_map>model://x500/materials/textures/rd.png</albedo_map>
+              <albedo_map>model://x500_custom/materials/textures/rd.png</albedo_map>
             </metal>
           </pbr>
         </material>
@@ -216,17 +216,15 @@
         </surface>
       </collision>
       <!-- IMU -->
-      <sensor name="imu" type="imu">
+      <sensor name="imu_sensor" type="imu">
         <always_on>true</always_on>
         <update_rate>200</update_rate>
-        <topic>/world/empty/model/x500_custom_0/link/base_link/sensor/imu_sensor/imu</topic>
         <imu/>
       </sensor>
 
       <!-- Barometer (air pressure) -->
-      <sensor name="baro" type="air_pressure">
+      <sensor name="air_pressure_sensor" type="air_pressure">
         <always_on>true</always_on>
-        <topic>/world/empty/model/x500_custom_0/link/base_link/sensor/air_pressure_sensor/air_pressure</topic>
         <update_rate>50</update_rate>
         <air_pressure/>
       </sensor>
@@ -234,7 +232,7 @@
       <!-- Forward RGB camera -->
       <sensor name="cam_front" type="camera">
         <always_on>true</always_on>
-        <topic>/x500_custom_0/camera/image</topic>
+        <topic>/x500_custom/camera/image</topic>
         <update_rate>30</update_rate>
         <camera>
           <image>
@@ -251,7 +249,7 @@
       <!-- Forward GPU LiDAR (2D arc) -->
       <sensor name="lidar_front" type="gpu_lidar">
         <always_on>true</always_on>
-        <topic>/x500_custom_0/lidar/front</topic>
+        <topic>/x500_custom/lidar/front</topic>
         <update_rate>20</update_rate>
         <ray>
           <scan>
@@ -279,7 +277,7 @@
       <!-- Side (“inward”) GPU LiDAR, yaw -90° -->
       <sensor name="lidar_side" type="gpu_lidar">
         <always_on>true</always_on>
-        <topic>/x500_custom_0/lidar/side</topic>
+        <topic>/x500_custom/lidar/side</topic>
         <update_rate>20</update_rate>
         <ray>
           <scan>
@@ -306,8 +304,8 @@
 
       <sensor name="gps" type="gps">
         <always_on>true</always_on>
-        <topic>/world/empty/model/x500_custom_0/link/base_link/sensor/navsat_sensor/navsat</topic>
         <navsat/>
+        <topic>/x500_custom/navsat_sensor/navsat</topic>
         <update_rate>10</update_rate>
         <pose>0 0 0.05 0 0 0</pose>
         <gps>
@@ -362,7 +360,7 @@
         <geometry>
           <mesh>
             <scale>0.8461538461538461 0.8461538461538461 0.8461538461538461</scale>
-            <uri>model://x500/meshes/1345_prop_ccw.stl</uri>
+            <uri>model://x500_custom/meshes/1345_prop_ccw.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -377,7 +375,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://x500/meshes/5010Bell.dae</uri>
+            <uri>model://x500_custom/meshes/5010Bell.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -434,7 +432,7 @@
         <geometry>
           <mesh>
             <scale>0.8461538461538461 0.8461538461538461 0.8461538461538461</scale>
-            <uri>model://x500/meshes/1345_prop_ccw.stl</uri>
+            <uri>model://x500_custom/meshes/1345_prop_ccw.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -449,7 +447,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://x500/meshes/5010Bell.dae</uri>
+            <uri>model://x500_custom/meshes/5010Bell.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -506,7 +504,7 @@
         <geometry>
           <mesh>
             <scale>0.8461538461538461 0.8461538461538461 0.8461538461538461</scale>
-            <uri>model://x500/meshes/1345_prop_cw.stl</uri>
+            <uri>model://x500_custom/meshes/1345_prop_cw.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -521,7 +519,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://x500/meshes/5010Bell.dae</uri>
+            <uri>model://x500_custom/meshes/5010Bell.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -578,7 +576,7 @@
         <geometry>
           <mesh>
             <scale>0.8461538461538461 0.8461538461538461 0.8461538461538461</scale>
-            <uri>model://x500/meshes/1345_prop_cw.stl</uri>
+            <uri>model://x500_custom/meshes/1345_prop_cw.stl</uri>
           </mesh>
         </geometry>
         <material>
@@ -593,7 +591,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://x500/meshes/5010Bell.dae</uri>
+            <uri>model://x500_custom/meshes/5010Bell.dae</uri>
           </mesh>
         </geometry>
       </visual>
