@@ -54,8 +54,8 @@ sudo docker run --rm -it \
   -e QT_X11_NO_MITSHM=1 \
   -e QT_QPA_PLATFORM=xcb \
   -e LIBGL_ALWAYS_SOFTWARE=1 \
-  -v $HOME/DroneFlightAgent/ws/src/drone_sim:/repo/ws/src/drone_sim \
   -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+  -v ${PWD}/ws/src/drone_sim:/repo/ws/src/drone_sim \
   --name fire-drone-sim \
   fire-drone:jazzy-px4
 ```
@@ -98,9 +98,11 @@ make px4_sitl_default -j$(nproc)
 
 ```bash
 ros2 launch drone_sim px4_gz_bringup.launch.py \
-  headless:=true px4:=true \
+  headless:=false px4:=true \
   px4_sim_model:=x500_custom \
-  px4_sys_autostart:=4001
+  px4_sys_autostart:=4001 \
+  world_file:=/repo/ws/src/drone_sim/worlds/building_fire.world \
+  world_name:=buildingfire
 ```
 
 * Starts **Gazebo Harmonic**

@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<sdf version="1.8">
+  <world name="building_fire">
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+
+
+<!-- Physics -->
+<plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics">
+  <engine>
+    <filename>gz-physics-dartsim-plugin</filename>
+  </engine>
+</plugin>
+
+<!-- Scene + user commands -->
+<plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+<plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+
+<!-- Per-sensor systems -->
+<plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu"/>
+<plugin filename="gz-sim-air-pressure-system" name="gz::sim::systems::AirPressure"/>
+<plugin filename="gz-sim-navsat-system" name="gz::sim::systems::NavSat"/>
+
+
+     <!-- Ground and sun -->
+    <include>
+      <uri>model://ground_plane</uri>
+      <name>ground</name>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+
+    <light name="sun" type="directional">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>0.1 0.1 0.1 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -1.0</direction>
+    </light>
+
+
+<include>
+  <uri>model://x500_custom</uri>
+  <name>x500_custom</name>
+  <pose>0 0 0.2 0 0 0</pose>
+</include>
+
+<model name="simple_building">
+  <static>true</static>
+  <pose>5 0 0 0 0 0</pose>
+  <link name="body">
+    <collision name="collision">
+      <geometry>
+        <box>
+          <size>10 10 6</size>
+        </box>
+      </geometry>
+    </collision>
+    <visual name="visual">
+      <geometry>
+        <box>
+          <size>10 10 6</size>
+        </box>
+      </geometry>
+      <material>
+        <ambient>0.7 0.7 0.7 1</ambient>
+        <diffuse>0.7 0.7 0.7 1</diffuse>
+      </material>
+    </visual>
+  </link>
+</model>
+
+
+  </world>
+</sdf>
+

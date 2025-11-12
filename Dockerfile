@@ -76,6 +76,8 @@ ARG PX4_TAG=v1.16.0
 RUN git clone --depth 1 --branch ${PX4_TAG} https://github.com/PX4/PX4-Autopilot.git /repo/ws/src/px4 && \
     cd /repo/ws/src/px4 && git submodule update --init --recursive
 
+COPY ws/src/drone_sim /repo/ws/src/drone_sim
+
 # Add overrides directly into rcS so they always run (and save)
 RUN bash -lc ' \
   cd /repo/ws/src/px4 && \
@@ -116,7 +118,8 @@ RUN echo 'source /opt/ros/jazzy/setup.bash || true' >> /root/.bashrc && \
     echo 'export COLCON_PYTHON_EXECUTABLE=/opt/venv/bin/python3' >> /root/.bashrc && \
     echo 'export PX4_CMAKE_ARGS="-DPython3_EXECUTABLE=/opt/venv/bin/python3 -DPYTHON_EXECUTABLE=/opt/venv/bin/python3"' >> /root/.bashrc
 
-
+RUN source /opt/ros/jazzy/setup.bash && \
+    colcon build --symlink-install --merge-install
 
 CMD ["/bin/bash"]
 
