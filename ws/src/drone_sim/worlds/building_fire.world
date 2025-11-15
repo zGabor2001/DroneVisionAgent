@@ -55,32 +55,356 @@
   <pose>0 0 0.2 0 0 0</pose>
 </include>
 
-<model name="simple_building">
-  <static>true</static>
-  <pose>5 0 0 0 0 0</pose>
-  <link name="body">
-    <collision name="collision">
-      <geometry>
-        <box>
-          <size>10 10 6</size>
-        </box>
-      </geometry>
-    </collision>
-    <visual name="visual">
-      <geometry>
-        <box>
-          <size>10 10 6</size>
-        </box>
-      </geometry>
-      <material>
-        <ambient>0.7 0.7 0.7 1</ambient>
-        <diffuse>0.7 0.7 0.7 1</diffuse>
-      </material>
-    </visual>
-  </link>
-</model>
+
+    <!-- Realistic Office Building -->
+    <model name="office_building">
+      <static>true</static>
+      <pose>8 0 0 0 0 0</pose>
+
+      <!-- Main Building Structure -->
+      <link name="main_structure">
+        <collision name="main_collision">
+          <geometry>
+            <box>
+              <size>12 15 20</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="main_visual">
+          <geometry>
+            <box>
+              <size>12 15 20</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.9 1</ambient>
+            <diffuse>0.8 0.8 0.9 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+
+      <!-- Windows - Front Facade -->
+      <link name="windows_front">
+        <pose>0 7.6 5 0 0 0</pose>
+        <visual name="window_row1">
+          <geometry>
+            <box>
+              <size>10 0.1 12</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.5 0.8 0.6</ambient>
+            <diffuse>0.3 0.5 0.8 0.6</diffuse>
+            <specular>0.9 0.9 1.0 1</specular>
+          </material>
+        </visual>
+
+        <!-- Window grid pattern -->
+        <visual name="window_grid">
+          <geometry>
+            <box>
+              <size>10 0.2 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.1 0.1 0.1 1</ambient>
+            <diffuse>0.1 0.1 0.1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+
+      <!-- Side Windows -->
+      <link name="windows_side1">
+        <pose>6 0 5 0 1.5708 0</pose>
+        <visual name="side_window1">
+          <geometry>
+            <box>
+              <size>14 0.1 12</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.5 0.8 0.6</ambient>
+            <diffuse>0.3 0.5 0.8 0.6</diffuse>
+            <specular>0.9 0.9 1.0 1</specular>
+          </material>
+        </visual>
+      </link>
+
+      <!-- Roof -->
+      <link name="roof">
+        <pose>0 0 10.2 0 0 0</pose>
+        <collision name="roof_collision">
+          <geometry>
+            <box>
+              <size>12.5 15.5 0.5</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="roof_visual">
+          <geometry>
+            <box>
+              <size>12.5 15.5 0.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.3 1</ambient>
+            <diffuse>0.3 0.3 0.3 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+
+      <!-- Entrance -->
+      <link name="entrance">
+        <pose>0 -7.4 1 0 0 0</pose>
+        <visual name="entrance_door">
+          <geometry>
+            <box>
+              <size>3 0.2 4</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.4 0.2 0.1 1</ambient>
+            <diffuse>0.4 0.2 0.1 1</diffuse>
+          </material>
+        </visual>
+
+        <!-- Entrance canopy -->
+        <visual name="entrance_canopy">
+          <pose>0 0.5 2.5 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>5 2 0.2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.2 0.2 0.3 1</ambient>
+            <diffuse>0.2 0.2 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+
+      <!-- Fire escape staircase on side -->
+      <link name="fire_escape">
+        <pose>-5.8 5 0 0 0 0</pose>
+        <visual name="staircase">
+          <geometry>
+            <box>
+              <size>0.5 4 18</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.6 0.4 0.2 1</ambient>
+            <diffuse>0.6 0.4 0.2 1</diffuse>
+          </material>
+        </visual>
+
+        <!-- Stair platforms -->
+        <visual name="stair_platform1">
+          <pose>0 0 3 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>2 4 0.2</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.3 0.1 1</ambient>
+            <diffuse>0.5 0.3 0.1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+
+      <!-- HVAC units on roof -->
+      <link name="hvac_units">
+        <pose>3 5 10.5 0 0 0</pose>
+        <visual name="hvac1">
+          <geometry>
+            <box>
+              <size>2 1.5 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.9 0.9 0.9 1</ambient>
+            <diffuse>0.9 0.9 0.9 1</diffuse>
+          </material>
+        </visual>
+
+        <visual name="hvac2">
+          <pose>-2 -4 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>1.5 1 0.8</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.9 0.9 0.9 1</ambient>
+            <diffuse>0.9 0.9 0.9 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
 
 
+     <!-- Enhanced Fire and Smoke Effects for Computer Vision Training -->
+    <model name="building_fire_effects">
+      <pose>8 0 0 0 0 0</pose>
+      <static>true</static>
+
+      <!-- Main interior fire -->
+      <link name="main_fire_source">
+        <particle_emitter name="intense_fire" type="box">
+          <emitting>true</emitting>
+          <pose>0 3 6 0 0 0</pose>
+          <size>5 0.8 3</size>
+          <particle_size>0.8 0.8 0.8</particle_size>
+          <lifetime>1.8</lifetime>
+          <rate>80</rate>
+          <min_velocity>1.2</min_velocity>
+          <max_velocity>3.0</max_velocity>
+          <scale_rate>0.3</scale_rate>
+          <color_start>1.0 0.1 0.0 1.0</color_start>
+          <color_end>1.0 0.9 0.1 0.0</color_end>
+          <particle_scatter_ratio>0.7</particle_scatter_ratio>
+        </particle_emitter>
+
+        <!-- Flickering fire effect -->
+        <particle_emitter name="flicker_fire" type="box">
+          <emitting>true</emitting>
+          <pose>-2 5 8 0 0 0</pose>
+          <size>2 0.3 2</size>
+          <particle_size>0.6 0.6 0.6</particle_size>
+          <lifetime>1.2</lifetime>
+          <rate>45</rate>
+          <min_velocity>0.8</min_velocity>
+          <max_velocity>2.2</max_velocity>
+          <scale_rate>0.25</scale_rate>
+          <color_start>1.0 0.4 0.0 1.0</color_start>
+          <color_end>1.0 1.0 0.3 0.0</color_end>
+        </particle_emitter>
+      </link>
+
+      <!-- Dense smoke plume -->
+      <link name="smoke_plume">
+        <particle_emitter name="dense_smoke" type="box">
+          <emitting>true</emitting>
+          <pose>0 4 12 0 0 0</pose>
+          <size>7 1.2 5</size>
+          <particle_size>2.0 2.0 2.0</particle_size>
+          <lifetime>12.0</lifetime>
+          <rate>60</rate>
+          <min_velocity>1.0</min_velocity>
+          <max_velocity>3.5</max_velocity>
+          <scale_rate>1.2</scale_rate>
+          <color_start>0.15 0.15 0.15 0.9</color_start>
+          <color_end>0.6 0.6 0.6 0.0</color_end>
+          <particle_scatter_ratio>0.8</particle_scatter_ratio>
+        </particle_emitter>
+
+        <!-- Secondary smoke sources -->
+        <particle_emitter name="roof_smoke_1" type="box">
+          <emitting>true</emitting>
+          <pose>3 -4 10.8 0 0 0</pose>
+          <size>2 0.4 1.5</size>
+          <particle_size>1.5 1.5 1.5</particle_size>
+          <lifetime>8.0</lifetime>
+          <rate>25</rate>
+          <min_velocity>0.7</min_velocity>
+          <max_velocity>2.2</max_velocity>
+          <scale_rate>0.9</scale_rate>
+          <color_start>0.25 0.25 0.25 0.8</color_start>
+          <color_end>0.5 0.5 0.5 0.0</color_end>
+        </particle_emitter>
+
+        <particle_emitter name="roof_smoke_2" type="box">
+          <emitting>true</emitting>
+          <pose>-3 2 10.8 0 0 0</pose>
+          <size>1.5 0.3 1.2</size>
+          <particle_size>1.3 1.3 1.3</particle_size>
+          <lifetime>6.5</lifetime>
+          <rate>20</rate>
+          <min_velocity>0.6</min_velocity>
+          <max_velocity>1.8</max_velocity>
+          <scale_rate>0.7</scale_rate>
+          <color_start>0.3 0.3 0.3 0.7</color_start>
+          <color_end>0.55 0.55 0.55 0.0</color_end>
+        </particle_emitter>
+      </link>
+
+      <!-- Fire glow and illumination -->
+      <link name="fire_illumination">
+        <!-- Window glow effects -->
+        <visual name="glow_window_front">
+          <pose>0 7.5 6 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>8 0.1 4</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1.0 0.3 0.0 0.7</ambient>
+            <diffuse>1.0 0.3 0.0 0.7</diffuse>
+            <emissive>1.0 0.5 0.2 0.9</emissive>
+          </material>
+        </visual>
+
+        <visual name="glow_window_side">
+          <pose>5.9 1 8 0 1.5708 0</pose>
+          <geometry>
+            <box>
+              <size>5 0.1 3</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1.0 0.2 0.0 0.6</ambient>
+            <diffuse>1.0 0.2 0.0 0.6</diffuse>
+            <emissive>1.0 0.4 0.1 0.8</emissive>
+          </material>
+        </visual>
+
+        <!-- Ground illumination -->
+        <visual name="ground_glow">
+          <pose>0 5 -9.8 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>6 4 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1.0 0.4 0.1 0.4</ambient>
+            <diffuse>1.0 0.4 0.1 0.4</diffuse>
+            <emissive>1.0 0.5 0.2 0.6</emissive>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Additional point lights for fire illumination -->
+    <light name="fire_light_1" type="point">
+      <pose>10 3 6 0 0 0</pose>
+      <diffuse>1.0 0.3 0.1 1.0</diffuse>
+      <specular>1.0 0.5 0.2 1.0</specular>
+      <attenuation>
+        <range>15</range>
+        <constant>0.5</constant>
+        <linear>0.2</linear>
+        <quadratic>0.01</quadratic>
+      </attenuation>
+      <cast_shadows>true</cast_shadows>
+    </light>
+
+    <light name="fire_light_2" type="point">
+      <pose>6 8 8 0 0 0</pose>
+      <diffuse>1.0 0.4 0.1 1.0</diffuse>
+      <specular>1.0 0.6 0.3 1.0</specular>
+      <attenuation>
+        <range>12</range>
+        <constant>0.6</constant>
+        <linear>0.3</linear>
+        <quadratic>0.02</quadratic>
+      </attenuation>
+      <cast_shadows>true</cast_shadows>
+    </light>
   </world>
 </sdf>
 

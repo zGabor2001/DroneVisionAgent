@@ -38,7 +38,7 @@ sudo docker run --rm -it \
   -e GZ_GUI=0 \
   -e QT_QPA_PLATFORM=offscreen \
   -e LIBGL_ALWAYS_SOFTWARE=1 \
-  -v $HOME/DroneFlightAgent/ws/src/drone_sim:/repo/ws/src/drone_sim \
+  -v ${PWD}/ws/src/drone_sim:/repo/ws/src/drone_sim \
   --name fire-drone-sim \
   fire-drone:jazzy-px4
 ```
@@ -73,7 +73,7 @@ sudo docker run --rm -it \
   -e QT_X11_NO_MITSHM=1 \
   -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
   -v /dev/dri:/dev/dri \
-  -v $HOME/DroneFlightAgent/ws/src/drone_sim:/repo/ws/src/drone_sim \
+  -v ${PWD}/ws/src/drone_sim:/repo/ws/src/drone_sim \
   --name fire-drone-sim \
   fire-drone:jazzy-px4
 ```
